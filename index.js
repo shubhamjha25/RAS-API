@@ -15,12 +15,16 @@ mongoose.connect(process.env.MONGODB_URI,
     .then(() => console.log("MongoDB Connected ..."))
     .catch((err) => console.log(err));
 
+app.use(express.static("public"));
+
+// initial response
 app.get("/", (req, res) => {
-    res.sendFile('index.html', {root: __dirname })
+    res.sendFile('public/index.html', {root: __dirname })
 });
 
+// middleware for error handling
 app.use(function(req, res, next) {
-    res.sendFile('error.html', {root: __dirname })
+    res.sendFile('public/error.html', {root: __dirname })
 })
 
 app.listen(port || 5000, () => {
