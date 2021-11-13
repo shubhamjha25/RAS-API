@@ -28,6 +28,29 @@ a {
     margin-right: 2rem;
 }
 
+.hero-section {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.hero-right {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.second-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.second-section-left {
+    font-size: 1.35rem;
+    padding: 0 20px;
+    text-align: justify;
+}
+
 .error-section {
     display: flex;
     justify-content: space-evenly;
@@ -61,6 +84,28 @@ a {
     .nav-right {
         display: flex;
         flex-direction: column;
+    }
+
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero-left img {
+        width: 100%;
+    }
+
+    .second-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .second-section-right img {
+        width: 100%;
+    }
+
+    .second-section-left p {
+        text-align: left;
     }
 
     .error-section {
