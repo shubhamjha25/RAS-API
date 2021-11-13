@@ -15,6 +15,14 @@ mongoose.connect(process.env.MONGODB_URI,
     .then(() => console.log("MongoDB Connected ..."))
     .catch((err) => console.log(err));
 
+app.get("/", (req, res) => {
+    res.sendFile('index.html', {root: __dirname })
+});
+
+app.use(function(req, res, next) {
+    res.sendFile('error.html', {root: __dirname })
+})
+
 app.listen(port || 5000, () => {
     console.log(`Server Running on Port ${port}`)
 }); 
