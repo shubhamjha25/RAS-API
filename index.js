@@ -4,6 +4,7 @@ const app = express();
 
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ mongoose.connect(process.env.MONGODB_URI,
     .catch((err) => console.log(err));
 
 app.use(express.static("public"));
+app.use(cors());
 
 // initial response
 app.get("/", (req, res) => {
