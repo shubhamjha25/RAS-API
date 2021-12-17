@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-const ItemSchema = new mongoose.Schema(
-    {
+const ItemSchema = new mongoose.Schema({
         title: { 
             type: String, 
             required: true, 
@@ -16,12 +15,6 @@ const ItemSchema = new mongoose.Schema(
             required: true 
         },
         categories: { 
-            type: Array 
-        },
-        size: { 
-            type: Array 
-        },
-        color: { 
             type: Array 
         },
         price: { 
