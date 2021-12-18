@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
+const authRoute = require('./routes/auth');
+
 dotenv.config();
 
 const port = process.env.PORT;
@@ -24,6 +26,8 @@ app.use(cors());
 app.get("/", (req, res) => {
     res.sendFile('public/index.html', {root: __dirname })
 });
+
+app.use("/api/auth", authRoute);
 
 // middleware for error handling
 app.use(function(req, res, next) {
