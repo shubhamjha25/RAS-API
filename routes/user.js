@@ -1,10 +1,10 @@
-const { verifyTokenAndAuthorization } = require('../middlewares/verifyToken');
+const { verifyTokenAndAuthorization, verifyTokenAndAdmin } = require('../middlewares/verifyToken');
 const User = require('../models/User');
 const CryptoJS = require("crypto-js");
 
 const router = require('express').Router();
 
-// Update User
+// UPDATE USER ACCOUNT DETAILS
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
     if (req.body.password) {
         req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.PASS_PHRASE).toString();
@@ -18,11 +18,22 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
     }
 });
 
-// Delete User 
+// DELETE USER ACCOUNT 
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id);
         res.status(200).json("User Account Deleted");
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// GET USER (ONLY ADMIN)
+router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        const { password, ...others } = user._doc;
+        res.status(200).json(others);
     } catch (err) {
         res.status(500).json(err);
     }
