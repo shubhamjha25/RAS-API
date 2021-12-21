@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 
 const authRoute = require('./routes/auth');
+const userRoute = require('./routes/user');
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
 
 // middleware for error handling
 app.use(function(req, res, next) {
