@@ -15,4 +15,20 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
     }
 });
 
+// EDIT ITEM (ONLY ADMIN)
+router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
+    try {
+        const updatedItem = await Item.findByIdAndUpdate(
+            req.params.id,
+            {
+                $set: req.body,
+            },
+            { new: true }
+        );
+        res.status(200).json(updatedItem);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;
