@@ -31,4 +31,14 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
     }
 });
 
+// GET ITEM
+router.get("/find/:id", async (req, res) => {
+    try {
+        const item = await Item.findById(req.params.id);
+        res.status(200).json(item);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;
