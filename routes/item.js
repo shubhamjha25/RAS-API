@@ -51,4 +51,29 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     }
 });
 
+// GET ALL PRODUCTS
+router.get("/", async (req, res) => {
+    const qNew = req.query.new;
+    const qCategory = req.query.category;
+    try {
+        let items;
+  
+        if (qNew) {
+            items = await Item.find().sort({ createdAt: -1 });
+        } else if (qCategory) {
+            items = await Item.find({
+                categories: {
+                    $in: [qCategory],
+                },
+            });
+        } else {
+            items = await Item.find();
+        }
+  
+        res.status(200).json(items);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;
