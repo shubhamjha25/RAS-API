@@ -1,5 +1,5 @@
 const Order = require("../models/Order");
-const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("../middlewares/verifyToken");
+const { verifyToken, verifyTokenAndAdmin } = require("../middlewares/verifyToken");
 
 const router = require("express").Router();
 
@@ -42,7 +42,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 });
 
 // GET USER ORDER
-router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/find/:userId", verifyToken, async (req, res) => {
     try {
         const orders = await Order.find({ userId: req.params.userId });
         res.status(200).json(orders);
@@ -72,7 +72,7 @@ router.get("/income", verifyTokenAndAdmin, async (req, res) => {
         const income = await Order.aggregate([
             {
                 $match: {
-                createdAt: { $gte: previousMonth },
+                createdAt: { $gte: lastMonth },
                     ...(productId && {
                         products: { $elemMatch: { productId } },
                     }),
