@@ -11,6 +11,7 @@ const userRoute = require('./routes/user');
 const itemRoute = require('./routes/item');
 const cartRoute = require('./routes/cart');
 const orderRoute = require('./routes/order');
+const feedbackRoute = require('./routes/feedback');
 const stripeRoute = require('./routes/stripe');
 
 dotenv.config();
@@ -37,6 +38,7 @@ app.use("/api/users", userRoute);
 app.use("/api/items", itemRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
+app.use("/api/feedbacks", feedbackRoute);
 app.use("/api/checkout", stripeRoute);
 
 // middleware for error handling
