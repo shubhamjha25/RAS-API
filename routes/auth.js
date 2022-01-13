@@ -6,6 +6,16 @@ const jwt = require('jsonwebtoken');
 // REGISTER USER
 router.post("/register", async (req, res) => {
     try {
+        var user = await User.findOne({ username: req.body.username });
+        if(user) {
+            return res.status(400).json("Username Alrady Taken");
+        }
+
+        user = await User.findOne({ email: req.body.email });
+        if(user) {
+            return res.status(400).json("E-Mail ID Already In Use")
+        }
+
         const newUser = new User({
             username: req.body.username,
             email: req.body.email,
