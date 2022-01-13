@@ -1,5 +1,5 @@
 const Order = require("../models/Order");
-const { verifyToken, verifyTokenAndAdmin } = require("../middlewares/verifyToken");
+const { verifyToken, verifyTokenAndAdmin, verifyTokenAndStaff } = require("../middlewares/verifyToken");
 
 const router = require("express").Router();
 
@@ -60,6 +60,22 @@ router.get("/userOrder/:userId", verifyToken, async (req, res) => {
         res.status(500).json(err);
   }
 });
+
+// UPDATE ORDER STATUS = MARK ORDER AS PREPARED/COMPLETED (FOR CHEF/WAITER i.e., STAFF)
+router.put("/statusUpdate/:id", verifyTokenAndStaff, async (req, res) => {
+    try {
+        const updatedOrder = await Order.findByIdAndUpdate(
+            req.params.id,
+            {
+                $set: req.body,
+            },
+            { new: true }
+        );
+        res.status(200).json(updatedOrder);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
 
 // GET ALL ORDERS (FOR ADMIN)
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
