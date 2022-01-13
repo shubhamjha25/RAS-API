@@ -34,4 +34,14 @@ const verifyTokenAndAdmin = (req, res, next) => {
     });
 };
 
-module.exports = { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin };
+const verifyTokenAndStaff = (req, res, next) => {
+    verifyToken(req, res, () => {
+        if(req.user.isStaff) {
+            next();
+        } else {
+            res.status(403).json("You Are Not Authorized");
+        }
+    })
+}
+
+module.exports = { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin, verifyTokenAndStaff };
