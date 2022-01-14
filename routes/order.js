@@ -84,7 +84,17 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
         res.status(200).json(orders);
     } catch (err) {
         res.status(500).json(err);
-  }
+    }
+});
+
+// GET ALL ORDERS (FOR STAFF)
+router.get("/getOrders", verifyTokenAndStaff, async (req, res) => {
+    try {
+        const orders = await Order.find();
+        res.status(200).json(orders);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
 // GENERATE MONTHLY INCOME
