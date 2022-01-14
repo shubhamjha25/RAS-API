@@ -20,8 +20,13 @@ const UserSchema = new mongoose.Schema({
             default: false,
         },
         isStaff: {
-            type: Boolean,
-            default: false
+            state: {
+                type: Boolean,
+                default: false
+            },
+            staffType: {
+                type: String
+            }
         },
         img: { 
             type: String 

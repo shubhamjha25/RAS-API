@@ -36,7 +36,7 @@ const verifyTokenAndAdmin = (req, res, next) => {
 
 const verifyTokenAndStaff = (req, res, next) => {
     verifyToken(req, res, () => {
-        if(req.user.isStaff) {
+        if(req.user.isStaff.state) {   
             next();
         } else {
             res.status(403).json("You Are Not Authorized");
